@@ -1,9 +1,9 @@
-﻿name: Deploy to GitHub Pages
+﻿﻿name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [ master ]
-  workflow_dispatch:
+    branches:
+      - master
 
 permissions:
   contents: read
@@ -18,9 +18,19 @@ jobs:
         uses: actions/checkout@v3
       - name: Install, build, and upload your site
         uses: withastro/action@v0
-
-  deploy:
+  build-tinacms: # New step to build TinaCMS
     needs: build
+    runs-on: ubuntu-latest
+    env:
+      TINA_PUBLIC_CLIENT_ID: ${{ secrets.TINA_PUBLIC_CLIENT_ID }}
+      TINA_TOKEN: ${{ secrets.TINA_TOKEN }}
+    steps:
+      - name: Checkout your repository using git
+        uses: actions/checkout@v3
+      - name: Build TinaCMS
+        run: npx tinacms build
+  deploy:
+    needs: [build, build-tinacms] # Added build-tinacms as a dependency
     runs-on: ubuntu-latest
     environment:
       name: github-pages
