@@ -1,41 +1,36 @@
-﻿name: Deploy to GitHub Pages
+﻿name: Deploy Astro Page to GitHub Pages
 
 on:
   push:
     branches:
-      - master
-
-permissions:
-  contents: read
-  pages: write
-  id-token: write
+      - main # Change this to your default branch name
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout your repository using git
-        uses: actions/checkout@v3
-      - name: Install, build, and upload your site
-        uses: withastro/action@v0
-  build-tinacms: # New step to build TinaCMS
-    needs: build
-    runs-on: ubuntu-latest
-    env:
-      TINA_PUBLIC_CLIENT_ID: ${{ secrets.TINA_PUBLIC_CLIENT_ID }}
-      TINA_TOKEN: ${{ secrets.TINA_TOKEN }}
-    steps:
-      - name: Checkout your repository using git
-        uses: actions/checkout@v3
-      - name: Build TinaCMS
-        run: npx tinacms build
   deploy:
-    needs: [build, build-tinacms] # Added build-tinacms as a dependency
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      
+      - name: Set Up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '17.3.0'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Build TinaCMS
+        env:
+          TINA_PUBLIC_CLIENT_ID: ${{ secrets.TINA_PUBLIC_CLIENT_ID }}
+          TINA_TOKEN: ${{ secrets.TINA_TOKEN }}
+        run: npx tinacms build
+        
+      - name: Build Astro Page
+        run: npm run build
+
       - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v1
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist # Replace with your build output directory
