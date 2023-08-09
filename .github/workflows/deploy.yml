@@ -17,6 +17,14 @@ jobs:
         with:
           node-version: '18.17.0' # Use a compatible Node.js version
 
+      - name: Cache Node Modules
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
       - name: Install Dependencies
         run: npm ci
 
@@ -41,3 +49,4 @@ jobs:
         uses: withastro/action@v0
         with:
           package-manager: npm # Specify your preferred package manager (npm or yarn)
+
