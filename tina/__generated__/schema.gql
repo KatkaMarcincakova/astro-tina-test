@@ -88,7 +88,12 @@ union DocumentNode = Post | Folder
 
 type Post implements Node & Document {
   title: String!
-  body: JSON
+  date: String
+  body1: JSON
+  img2: String
+  body2: JSON
+  imgSrc: String
+  categories: [String]
   id: ID!
   _sys: SystemInfo!
   _values: JSON!
@@ -101,15 +106,35 @@ input StringFilter {
   in: [String]
 }
 
+input DatetimeFilter {
+  after: String
+  before: String
+  eq: String
+  exists: Boolean
+  in: [String]
+}
+
 input RichTextFilter {
   startsWith: String
   eq: String
   exists: Boolean
 }
 
+input ImageFilter {
+  startsWith: String
+  eq: String
+  exists: Boolean
+  in: [String]
+}
+
 input PostFilter {
   title: StringFilter
-  body: RichTextFilter
+  date: DatetimeFilter
+  body1: RichTextFilter
+  img2: ImageFilter
+  body2: RichTextFilter
+  imgSrc: ImageFilter
+  categories: StringFilter
 }
 
 type PostConnectionEdges {
@@ -143,7 +168,12 @@ input DocumentMutation {
 
 input PostMutation {
   title: String
-  body: JSON
+  date: String
+  body1: JSON
+  img2: String
+  body2: JSON
+  imgSrc: String
+  categories: [String]
 }
 
 schema {

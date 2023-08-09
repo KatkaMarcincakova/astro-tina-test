@@ -167,7 +167,12 @@ export type DocumentNode = Post | Folder;
 export type Post = Node & Document & {
   __typename?: 'Post';
   title: Scalars['String']['output'];
-  body?: Maybe<Scalars['JSON']['output']>;
+  date?: Maybe<Scalars['String']['output']>;
+  body1?: Maybe<Scalars['JSON']['output']>;
+  img2?: Maybe<Scalars['String']['output']>;
+  body2?: Maybe<Scalars['JSON']['output']>;
+  imgSrc?: Maybe<Scalars['String']['output']>;
+  categories?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   id: Scalars['ID']['output'];
   _sys: SystemInfo;
   _values: Scalars['JSON']['output'];
@@ -180,15 +185,35 @@ export type StringFilter = {
   in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
+export type DatetimeFilter = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  eq?: InputMaybe<Scalars['String']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
 export type RichTextFilter = {
   startsWith?: InputMaybe<Scalars['String']['input']>;
   eq?: InputMaybe<Scalars['String']['input']>;
   exists?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
+export type ImageFilter = {
+  startsWith?: InputMaybe<Scalars['String']['input']>;
+  eq?: InputMaybe<Scalars['String']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
 export type PostFilter = {
   title?: InputMaybe<StringFilter>;
-  body?: InputMaybe<RichTextFilter>;
+  date?: InputMaybe<DatetimeFilter>;
+  body1?: InputMaybe<RichTextFilter>;
+  img2?: InputMaybe<ImageFilter>;
+  body2?: InputMaybe<RichTextFilter>;
+  imgSrc?: InputMaybe<ImageFilter>;
+  categories?: InputMaybe<StringFilter>;
 };
 
 export type PostConnectionEdges = {
@@ -264,17 +289,22 @@ export type DocumentMutation = {
 
 export type PostMutation = {
   title?: InputMaybe<Scalars['String']['input']>;
-  body?: InputMaybe<Scalars['JSON']['input']>;
+  date?: InputMaybe<Scalars['String']['input']>;
+  body1?: InputMaybe<Scalars['JSON']['input']>;
+  img2?: InputMaybe<Scalars['String']['input']>;
+  body2?: InputMaybe<Scalars['JSON']['input']>;
+  imgSrc?: InputMaybe<Scalars['String']['input']>;
+  categories?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
-export type PostPartsFragment = { __typename?: 'Post', title: string, body?: any | null };
+export type PostPartsFragment = { __typename?: 'Post', title: string, date?: string | null, body1?: any | null, img2?: string | null, body2?: any | null, imgSrc?: string | null, categories?: Array<string | null> | null };
 
 export type PostQueryVariables = Exact<{
   relativePath: Scalars['String']['input'];
 }>;
 
 
-export type PostQuery = { __typename?: 'Query', post: { __typename?: 'Post', id: string, title: string, body?: any | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } };
+export type PostQuery = { __typename?: 'Query', post: { __typename?: 'Post', id: string, title: string, date?: string | null, body1?: any | null, img2?: string | null, body2?: any | null, imgSrc?: string | null, categories?: Array<string | null> | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } };
 
 export type PostConnectionQueryVariables = Exact<{
   before?: InputMaybe<Scalars['String']['input']>;
@@ -286,12 +316,17 @@ export type PostConnectionQueryVariables = Exact<{
 }>;
 
 
-export type PostConnectionQuery = { __typename?: 'Query', postConnection: { __typename?: 'PostConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'PostConnectionEdges', cursor: string, node?: { __typename?: 'Post', id: string, title: string, body?: any | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null } };
+export type PostConnectionQuery = { __typename?: 'Query', postConnection: { __typename?: 'PostConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'PostConnectionEdges', cursor: string, node?: { __typename?: 'Post', id: string, title: string, date?: string | null, body1?: any | null, img2?: string | null, body2?: any | null, imgSrc?: string | null, categories?: Array<string | null> | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null } };
 
 export const PostPartsFragmentDoc = gql`
     fragment PostParts on Post {
   title
-  body
+  date
+  body1
+  img2
+  body2
+  imgSrc
+  categories
 }
     `;
 export const PostDocument = gql`

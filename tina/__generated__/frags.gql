@@ -1,4 +1,9 @@
 fragment PostParts on Post {
   title
-  body
+  date
+  body1
+  img2
+  body2
+  imgSrc
+  categories
 }
