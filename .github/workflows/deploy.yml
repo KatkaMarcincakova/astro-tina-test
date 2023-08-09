@@ -3,7 +3,7 @@
 on:
   push:
     branches:
-      - main # Change this to your default branch name
+      - master
 
 jobs:
   deploy:
@@ -25,7 +25,7 @@ jobs:
           TINA_PUBLIC_CLIENT_ID: ${{ secrets.TINA_PUBLIC_CLIENT_ID }}
           TINA_TOKEN: ${{ secrets.TINA_TOKEN }}
         run: npx tinacms build
-        
+
       - name: Build Astro Page
         run: npm run build
 
