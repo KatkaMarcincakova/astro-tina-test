@@ -1,9 +1,0 @@
-fragment PostParts on Post {
-  title
-  date
-  body1
-  img2
-  body2
-  imgSrc
-  categories
-}
