@@ -43,7 +43,9 @@ jobs:
         run: npx tinacms build
 
       - name: Test
-        run: ls
+        run: |
+          ls
+          pwd
         
       - name: Install, build, and upload your site
         uses: withastro/action@v0
