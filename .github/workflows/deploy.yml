@@ -53,7 +53,7 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Find lock file
-        run: echo "$(find . -name 'package-lock.json')"
+        run: echo "$(find ./astro-tina-test -name 'package-lock.json')"
 
       - name: Deploy to GitHub Pages
         id: deployment
