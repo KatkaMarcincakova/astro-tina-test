@@ -50,7 +50,7 @@ jobs:
       - name: Install, build, and upload your site
         uses: withastro/action@v0
         with:
-          path: /
+          path: /astro-tina-test/astro-tina-test
 
   deploy:
     needs: build
