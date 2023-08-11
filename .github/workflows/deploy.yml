@@ -48,7 +48,7 @@ jobs:
           path: "dist"
 
       - name: Test
-        run: cat ./dist/admin.index.html
+        run: cat ./dist/admin/index.html
 
   deploy:
     needs: build
