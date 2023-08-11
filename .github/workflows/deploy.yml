@@ -48,7 +48,14 @@ jobs:
           path: "dist"
 
       - name: Test
-        run: cat ./dist/admin/index.html
+        run: | 
+          cat ./dist/admin/index.html
+          echo "LS IN GENERAL"
+          ls
+          echo "LS FOR DIST DIRECTORY"
+          ls dist
+          echo "LS FOR TINA DIRECTORY"
+          ls tina
 
   deploy:
     needs: build
