@@ -25,27 +25,25 @@ jobs:
         with:
           node-version: '18.17.0' # Use a compatible Node.js version
 
-    
+      - name: Cache Node Modules
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: npm-${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            npm-${{ runner.os }}-
 
       - name: Install Dependencies
         run: npm ci
 
-      - name: Build TinaCMS
-        env:
-          TINA_PUBLIC_CLIENT_ID: ${{ secrets.TINA_PUBLIC_CLIENT_ID }}
-          TINA_TOKEN: ${{ secrets.TINA_TOKEN }}
-        run: npx tinacms build
-
-      - name: Test
-        run: |
-          ls
-          pwd
+      # - name: Build TinaCMS
+      #   env:
+      #     TINA_PUBLIC_CLIENT_ID: ${{ secrets.TINA_PUBLIC_CLIENT_ID }}
+      #     TINA_TOKEN: ${{ secrets.TINA_TOKEN }}
+      #   run: npx tinacms build
         
       - name: Install, build, and upload your site
         uses: withastro/action@v0.2.0
-        with:
-          path: astro-tina-test/
-          package-manager: npm
 
   deploy:
     needs: build
