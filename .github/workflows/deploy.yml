@@ -25,6 +25,11 @@ jobs:
         with:
           node-version: "16"
 
+      - name: Setup Pages
+        uses: actions/configure-pages@v2
+        with:
+          static_site_generator: next
+
       - name: Install dependencies
         run: npm ci
 
