@@ -55,5 +55,3 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: withastro/action@v0
-        with:
-          package-manager: npm # Specify your preferred package manager (npm or yarn)
