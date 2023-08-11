@@ -42,8 +42,8 @@ jobs:
           TINA_TOKEN: ${{ secrets.TINA_TOKEN }}
         run: npx tinacms build
 
-      - name: Build Astro Page
-        run: npm run build # Adjust this command to match your project setup
+      - name: Install, build, and upload your site
+        uses: withastro/action@v0
 
   deploy:
     needs: build
