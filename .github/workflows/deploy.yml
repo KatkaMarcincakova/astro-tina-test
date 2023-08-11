@@ -52,9 +52,6 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: Find lock file
-        run: echo "$(find ./astro-tina-test -name 'package-lock.json')"
-
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: withastro/action@v0.2.0
+        uses: actions/deploy-pages@v1
