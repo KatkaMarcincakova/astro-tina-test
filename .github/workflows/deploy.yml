@@ -54,6 +54,8 @@ jobs:
           ls
           echo "LS FOR DIST DIRECTORY"
           ls dist
+          echo "LS FOR ADMIN DIRECTORY"
+          ls dist/admin
           echo "LS FOR TINA DIRECTORY"
           ls tina
 
